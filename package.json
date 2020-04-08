@@ -1,0 +1,24 @@
+{
+  "name": "mp-nodejs-usos",
+  "version": "1.0.0",
+  "description": "Aplikacja przetwarzająca dane uzyskane poprzez USOS API na potrzeby społeczności akademickiej UMK.",
+  "main": "getdata.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JakubKaliszewski/MP-NODEJS-USOS.git"
+  },
+  "keywords": [
+    "UMK",
+    "IS",
+    "USOS"
+  ],
+  "author": "Jakub Kaliszewski",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JakubKaliszewski/MP-NODEJS-USOS/issues"
+  },
+  "homepage": "https://github.com/JakubKaliszewski/MP-NODEJS-USOS#readme"
+}
