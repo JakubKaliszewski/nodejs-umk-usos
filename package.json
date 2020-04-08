@@ -2,7 +2,7 @@
   "name": "mp-nodejs-usos",
   "version": "1.0.0",
   "description": "Aplikacja przetwarzająca dane uzyskane poprzez USOS API na potrzeby społeczności akademickiej UMK.",
-  "main": "getdata.js",
+  "main": "index.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
