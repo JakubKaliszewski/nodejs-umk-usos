@@ -4,15 +4,13 @@ Zbudowanie aplikacji przetwarzającej dane uzyskane poprzez USOS API na potrzeby
 społeczności akademickiej UMK. Aplikacja składa się z implementacji serwera oraz
 klienta. Użytkownik korzysta z aplikacji poprzez stronę HTML. Tam wprowadza
 dane, które są przetwarzane na serwerze, a następnie wynik jest prezentowany w
-atrakcyjnej formie użytkownikowi.
-
-Rezultat działania my bać wynikiem złożenia informacji z minimum dwóch różnych
-żądań HTTP np:[search2](https://usosapps.umk.pl/services/users/search2) - wyszukiwanie
+atrakcyjnej formie użytkownikowi. Rezultat działania my bać wynikiem złożenia
+informacji z minimum dwóch różnych żądań HTTP np:
+[search2](https://usosapps.umk.pl/services/users/search2) - wyszukiwanie
 użytkownika USOS i na podstawie uzyskanego *id* szukamy informacji o
-zatrudnieniu:[staff](https://usosapps.umk.pl/services/tt/staff).
-
-Zestaw dostępnych metod USUS API znajduje się tutaj\:
-https://usosapps.umk.pl/developers/api/
+zatrudnieniu: [staff](https://usosapps.umk.pl/services/tt/staff). Zestaw
+dostępnych metod znajduje się na stronie
+[USOSAPPS](https://usosapps.umk.pl/developers/api/)
 
 ### Autoryzacja
 Metody są na różnym poziomie dostępu. Niektóre nie wymagają autoryzacji, ale
