@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/JakubKaliszewski/MP-NODEJS-USOS/issues"
   },
-  "homepage": "https://github.com/JakubKaliszewski/MP-NODEJS-USOS#readme"
+  "homepage": "https://github.com/JakubKaliszewski/MP-NODEJS-USOS#readme",
+  "dependencies": {
+    "express": "~4.17.1"
+  }
 }
