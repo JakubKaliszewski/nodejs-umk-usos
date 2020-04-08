@@ -10,7 +10,7 @@ informacji z minimum dwóch różnych metod API np:
 użytkownika USOS i na podstawie uzyskanego *id* szukamy informacji o
 zatrudnieniu za pomocą metody:
 [staff](https://usosapps.umk.pl/services/tt/staff). Zestaw dostępnych metod
-znajduje się na stronie [USOSAPPS](https://usosapps.umk.pl/developers/api/)
+znajduje się na stronie [USOSapi](https://usosapps.umk.pl/developers/api/)
 
 ### Autoryzacja
 Metody są na różnym poziomie dostępu. Niektóre nie wymagają autoryzacji, ale
@@ -26,11 +26,11 @@ repozytorium.
 
 ### Rezultat projektu i ocenianie
 Aplikacja, którą zbudujecie, ma być gotowym produktem. To znaczy, że zaspokaja
-jakąś konkretną potrzebę społeczności akademickiej *UMK*, jest niezawodna oraz
+jakąś konkretną potrzebę społeczności akademickiej UMK, jest niezawodna oraz
 atrakcyjna wizualnie. To jest projekt na ocenę, na którą składa się:
 1. Definicja problemu: trafne zdefiniowanie użytkownika końcowego i jego potrzeb.
 2. Rozwiązanie problemu: trafne rozwiązanie techniczne (pomysł na apkę,
-   niezawodność i atrakcyjność wizualna)
+   niezawodność i atrakcyjność wizualna).
 3. Oryginalne rozwiązanie techniczne, w tym napisanie aplikacji w czystym
    Node.js. Im mniej zewnętrznych bibliotek tym lepiej. Rozwiązanie problemu
    autoryzacji, aby nie trzeba było naciskać na link. Rozwiązanie problemu
