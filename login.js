@@ -8,7 +8,7 @@ let oauth = {callback: 'http://127.0.0.1:3000/callback',
 	     consumer_key: 'TWÓJ KLUCZ',
 	     consumer_secret: 'TWÓJ SEKRET'
 	    };
-   
+
 let url = 'https://usosapps.umk.pl/services/oauth/request_token';
 
 const login = (app, logindata) => {
@@ -18,7 +18,7 @@ const login = (app, logindata) => {
 
 	console.log("Aby kontynować autoryzacje, naciśnij na link:");
 	console.log(url);
-	
+
 	app.get('/callback', function (req, res) {
 	    res.send('Hello USOS');
 	    const verifier = qs.parse(req.originalUrl).oauth_verifier;
@@ -30,7 +30,7 @@ const login = (app, logindata) => {
   		     verifier: verifier
   		    };
   	    url = 'https://usosapps.umk.pl/services/oauth/access_token';
-	    
+
  	    request.post({url:url, oauth:oauth}, function (e, r, body) {
 		const perm_data = qs.parse(body);
   		oauth = {consumer_key: oauth.consumer_key,
