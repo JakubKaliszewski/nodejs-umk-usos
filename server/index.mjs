@@ -1,5 +1,5 @@
 import express from 'express';
-import UsosComunnication from "./UsosAuth/usosComunnication.mjs";
+import UsosCommunication from "./UsosAuth/usosCommunication.mjs";
 
 const port = process.env.PORT || 3000;
 const app = express();
@@ -8,4 +8,4 @@ const app = express();
 //app.use('/api/', usosApi);
 app.listen(port, () => console.log(`Server started on port ${port}`));
 
-UsosComunnication.getRequestToken();
+UsosCommunication.getRequestToken();

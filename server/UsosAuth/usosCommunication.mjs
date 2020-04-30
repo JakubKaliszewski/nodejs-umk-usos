@@ -17,7 +17,7 @@ import crypto from "crypto";
 
 const __dirname = path.resolve();
 
-export default class UsosComunnication{
+export default class UsosCommunication{
 
     static apiKeysFile = "/apiKeys.json";
     static keys = null;
