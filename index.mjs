@@ -14,3 +14,10 @@ app.enable('view cache');
 app.listen(port, () => console.log(`Server started on port ${port}`));
 app.use('/api/usos', usosApiRouter);
 UsosCommunication.getRequestToken();
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    res.send(err);
+});
