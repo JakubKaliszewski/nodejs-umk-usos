@@ -6,7 +6,7 @@ usosApiRouter.get('/user', async (request, response) => {
     const name = request.query.name;
     const surname = request.query.surname;
     if(name === '' || surname === '' || name === undefined || surname === undefined)
-        response.status(400).send();
+        response.status(400).render('error', {status : 400});
     else response.send(`${name} ${surname}`);
 });
 
@@ -14,6 +14,6 @@ usosApiRouter.get('/user', async (request, response) => {
 usosApiRouter.get('/staff', async (request, response) => {
     const userId = request.query.userId;
     if(userId === '' || userId === undefined)
-        response.status(400).send();
+        response.status(400).render('error', {status : 400});
     else response.send(userId);
 });
