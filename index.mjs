@@ -8,7 +8,7 @@ const app = express();
 /*App settings*/
 app.set('view engine', 'pug')
 app.get('/', function (req, res) {
-    res.render('index', { title: 'Hey', message: 'Hello there!' })
+    res.render('index', { title: 'Hey' })
 })
 app.enable('view cache');
 app.listen(port, () => console.log(`Server started on port ${port}`));
