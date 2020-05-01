@@ -78,7 +78,7 @@ export default class UsosCommunication{
         await this.doRequest(options , data,null);
     }
 
-    static async searchUser(query){
+    static async searchUser(name, surname){
         //todo
     }
 
