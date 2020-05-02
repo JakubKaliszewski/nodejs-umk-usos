@@ -4,7 +4,9 @@
   "description": "Aplikacja przetwarzająca dane uzyskane poprzez USOS API na potrzeby społeczności akademickiej UMK.",
   "main": "index.mjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "webpack && node index.mjs"
   },
   "repository": {
     "type": "git",
@@ -29,9 +31,14 @@
     "vue": "^2.6.11"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.9.6",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.1.0",
+    "bulma": "^0.8.2",
     "css-loader": "^3.5.3",
+    "install": "^0.13.0",
+    "sass": "^1.26.5",
+    "sass-loader": "^8.0.2",
     "vue-loader": "^15.9.2",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.6.11",

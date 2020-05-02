@@ -7,6 +7,8 @@ const app = express();
 
 /*App settings*/
 app.set('view engine', 'pug')
+// Set Public Folder
+app.use(express.static('public'));
 app.get('/', function (req, res) {
     res.render('index', { title: 'Hey' })
 })

@@ -2,10 +2,7 @@ doctype html
 html
     head
         title= title
-        style
-            include style.css
-        script
-            include vue/bundle.js
+        link(rel='stylesheet' href='style.css')
     body
-        #app
-            block content
+        block content
+    script(src='bundle.js')

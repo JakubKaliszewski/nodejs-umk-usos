@@ -1,0 +1,43 @@
+'use strict'
+const path = require('path');
+const { VueLoaderPlugin } = require('vue-loader')
+
+module.exports = {
+    mode: 'development',
+    entry: './views/vue/main.js',
+    output: {
+        filename: 'bundle.js',
+        path: path.resolve(__dirname + '/public/'),
+    },
+    resolve: {
+        extensions: ['.js', '.vue', '.json']
+    },
+}
+
+module.rules = [{
+    test: /\.vue$/,
+    use: 'vue-loader'
+},
+    // this will apply to both plain `.js` files
+    // AND `<script>` blocks in `.vue` files
+    {
+        test: /\.js$/,
+        use: {
+            loader: 'babel-loader'
+        },
+        exclude: /node_modules/
+    },
+    // this will apply to both plain `.css` files
+    // AND `<style>` blocks in `.vue` files
+    {
+        test: /\.css$/,
+        use: [
+            'vue-style-loader',
+            'css-loader'
+        ]
+    }]
+
+module.plugins = [
+    // make sure to include the plugin for the magic
+    new VueLoaderPlugin()
+]

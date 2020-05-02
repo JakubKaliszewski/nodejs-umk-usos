@@ -1,14 +1,7 @@
-/*
 import Vue from "vue";
+import App from './components/Hello.vue';
 
 new Vue({
-    data() {
-        return {
-            appTitle: "Pierwsza aplikacja Vue!"
-        };
-    }
-}).$mount("#app");
-*/
-import Vue from "vue";
-
-console.log("Hello!");
+    el: '#app',
+    render: h => h(App)
+})
