@@ -24,7 +24,9 @@
   },
   "homepage": "https://github.com/JakubKaliszewski/MP-NODEJS-USOS#readme",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.13.0",
     "express": "~4.17.1",
+    "file-loader": "^6.0.0",
     "got": "^11.0.3",
     "oauth-1.0a": "^2.2.6",
     "pug": "^2.0.4",

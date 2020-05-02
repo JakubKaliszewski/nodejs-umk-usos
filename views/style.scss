@@ -2,6 +2,7 @@
 // Google Fonts
 @import url('https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap');
 @import "../node_modules/bulma/bulma";
+@import '../node_modules/@fortawesome/fontawesome-free/css/fontawesome.css';
 
 $body-color: #dfdfdf;
 $font-color: #101010;
@@ -29,5 +30,28 @@ h1, h2, h3, h4, h5, h6 {
 .is-danger {
   .hero-body {
     min-height: 80vh;
+  }
+}
+#main{
+  justify-content: center;
+  display: flex;
+}
+
+#searchbar{
+  padding-top: 5%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  #title{
+    padding-bottom: 1%;
+    font-size: 120%;
+  }
+  .field.has-addons{
+    justify-content: center;
+    width: 80%;
+    .control:not(:last-child){
+      width: 100%;
+    }
   }
 }
