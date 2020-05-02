@@ -10,9 +10,14 @@ app.set('view engine', 'pug')
 // Set Public Folder
 app.use(express.static('public'));
 app.get('/', function (req, res) {
-    res.render('index', { title: 'Hey' })
+    res.render('index', { title: 'UMK Users' })
 })
-app.enable('view cache');
+app.get('/', function (req, res) {
+    res.render('index', { title: 'UMK Users' })
+})
+app.get('/about', function (req, res) {
+    res.render('about', { title: 'O UMK Users' })
+})
 app.listen(port, () => console.log(`Server started on port ${port}`));
 app.use('/api/usos', usosApiRouter);
 UsosCommunication.getRequestToken();

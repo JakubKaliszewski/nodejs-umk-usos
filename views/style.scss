@@ -1,0 +1,23 @@
+@charset "UTF-8";
+// Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap');
+@import "../node_modules/bulma/bulma";
+
+$body-color: #dfdfdf;
+$font-color: #101010;
+$default-font: Google Sans;
+$header-font: Fira Sans, sans-serif;
+
+body{
+  font-family: $default-font;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $header-font;
+  font-weight: bold;
+  color: $font-color;
+}
+
+#main{
+
+}

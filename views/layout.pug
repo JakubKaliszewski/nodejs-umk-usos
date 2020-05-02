@@ -1,8 +1,48 @@
+-let session = false;
+
 doctype html
 html
     head
         title= title
-        link(rel='stylesheet' href='style.css')
+        meta(name="viewport" content="width=device-width, initial-scale=1")/
+        link(rel="icon" type="image/png" href="logo_umk32.png")
     body
-        block content
+        nav.navbar(role='navigation' aria-label='main navigation')
+            .navbar-brand
+                a.navbar-item(href='/')
+                    img(src='logo-umk.png')
+                a.navbar-burger.burger(role='button' aria-label='menu' aria-expanded='false' data-target='navbar-items')
+                    span(aria-hidden='true')
+                    span(aria-hidden='true')
+                    span(aria-hidden='true')
+            #navbar-items.navbar-menu
+                .navbar-start
+                    a.navbar-item(href='/')
+                        | Home
+                    a.navbar-item(href='about')
+                        | O stronie
+                .navbar-end
+                    .navbar-item
+                        .buttons
+                            a.button.is-link(onclick=session = !session)//TODO
+                                if session
+                                    strong Wyloguj się
+                                else
+                                    strong Zaloguj się
+        #main(class='container')
+
+            block content
+
+    footer.footer
+        .content.has-text-centered
+            p
+                strong UMKUsers
+                |
+                | by
+                a(href='http://jakubkaliszewski.pl')  Jakub Kaliszewski
+                |. The source code is
+                |
+                a(href='http://opensource.org/licenses/mit-license.php') MIT
+                |
+                | licensed.
     script(src='bundle.js')
