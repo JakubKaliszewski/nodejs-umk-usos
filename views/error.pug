@@ -1,5 +1,16 @@
-html
-  head
-    title Error #{status}
-  body
-    h1 Error #{status}
+extends layout
+
+block content
+  script(type='text/javascript').
+      let element = document.getElementById('main');
+      element.style.width = "100%";
+      element.style.minWidth = "100%";
+      element.style.maxWidth = "100%";
+  section.hero.is-danger
+    .hero-body
+      .container
+        h1.title
+          | Błąd #{status}
+        h2.subtitle
+          | Chyba nie powinieneś się tu znaleźć 😱
+          | Spróbuj gdzie indziej 😃

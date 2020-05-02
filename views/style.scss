@@ -8,7 +8,7 @@ $font-color: #101010;
 $default-font: Google Sans;
 $header-font: Fira Sans, sans-serif;
 
-body{
+body {
   font-family: $default-font;
 }
 
@@ -18,6 +18,16 @@ h1, h2, h3, h4, h5, h6 {
   color: $font-color;
 }
 
-#main{
+#main {
+  min-height: 80vh;
+}
 
+.footer {
+  padding: 1.5em;
+}
+
+.is-danger {
+  .hero-body {
+    min-height: 80vh;
+  }
 }
