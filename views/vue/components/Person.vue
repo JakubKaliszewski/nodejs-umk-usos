@@ -10,7 +10,7 @@
                 <div class="media-content">
                     <div class="content">
                         <p>
-                            <strong>John {{person.surname}}</strong> <small>@johnsmith</small> <small>31m</small>
+                            <strong>{{person.name}} {{person.surname}}</strong> <small>@{{person.role}}</small>
                             <br>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa
                             fringilla egestas. Nullam condimentum luctus turpis.
@@ -48,8 +48,7 @@
         props: {
             person: {
                 type: Object,
-                required: true,
-                surname: 'Pachołek'
+                required: true
             }
         },
         name: "Person",

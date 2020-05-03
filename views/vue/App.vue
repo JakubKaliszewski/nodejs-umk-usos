@@ -3,9 +3,9 @@
         <Searchbar v-model="query" @keydown.enter="search"/>
         <div id="persons" v-if="personResults.length">
             <Person
-                v-for="person in personResults"
-                :key="person.id"
-                :person="person"
+                    v-for="person in personResults"
+                    :key="person.id"
+                    :person="person"
             />
         </div>
         <p v-else-if="searched === false"/>
@@ -20,7 +20,7 @@
 
     export default {
         components: {Searchbar, Person},
-        data(){
+        data() {
             return {
                 searched: false,
                 personResults: [],
@@ -29,25 +29,34 @@
                 hostname: window.location.host
             }
         },
-        methods:{
-            async search(){
+        methods: {
+            async search() {
                 console.log('szukam ' + this.query);
                 this.searched = true;
                 this.lastQuery = this.query;
 
                 let name, surname = null;
                 let splitQuery = this.query.split(' ');
-                const params = splitQuery.length;
-                if(params === 1) surname = splitQuery[0];
-                if(params === 2){ name = splitQuery[0]; surname = splitQuery[1]}
+                const countOfParams = splitQuery.length;
+                if (countOfParams === 1) surname = splitQuery[0];
+                if (countOfParams === 2) {
+                    name = splitQuery[0];
+                    surname = splitQuery[1]
+                }
+                const searchParams = countOfParams === 1 ? {'surname': surname} : {'surname': surname, 'name': name};
+                const url = new URL('http://' + this.hostname + '/api/usos/user'),
+                    params = searchParams
+                Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+                const response = await fetch(url);
+                const result = await response.json();
 
-                const url = this.hostname + '/api/user';
-                const searchParams = params === 1 ? new URLSearchParams([['surname', surname]]) : new URLSearchParams([['surname', surname], ['name', name]]);
-                const response = (await fetch(url, searchParams)).json();
                 this.personResults.push({
                     id: 1,
-                    surname: response.body.surname
+                    surname: result.surname,
+                    name: result.name,
+                    role: result.role
                 })
+
             }
         }
     }

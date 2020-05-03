@@ -7,8 +7,8 @@ usosApiRouter.get('/user', async (request, response) => {
     const surname = request.query.surname;
     if(surname === '' || surname === undefined)
         response.status(400).render('error', {status : 400});
-    else if(name !== '' || name !== undefined) response.send(`${name} ${surname}`);
-    else response.send(`${surname}`);
+    else if(name !== '' || name !== undefined) response.json({id: 1, name:name, surname: surname, role: 'Student'});
+    else response.json({id: 1, surname: surname, role: 'Student'});
 });
 
 //Get staff by userId
