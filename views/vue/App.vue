@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Searchbar v-model="query" @keydown.enter="search"/>
+        <Searchbar v-model="query" @keydown.enter="search" @search="search"/>
         <div id="persons" v-if="personResults.length">
             <Person
                     v-for="person in personResults"
@@ -31,8 +31,9 @@
         },
         methods: {
             async search() {
-                console.log('szukam ' + this.query);
                 this.searched = true;
+                if(this.lastQuery === this.query) return;
+                console.log('szukam ' + this.query);
                 this.lastQuery = this.query;
 
                 let name, surname = null;

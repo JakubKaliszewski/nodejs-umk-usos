@@ -6,7 +6,7 @@
                 <input class="input" type="text" :value="value" v-on="listeners" placeholder="Szukaj użytkownika...">
             </div>
             <div class="control ">
-                <a class="button is-link">
+                <a class="button is-link" @click="$emit('search')">
                     Szukaj<i style="padding-left: 10%" class="fas fa-search"></i>
                 </a>
             </div>
@@ -29,7 +29,8 @@
                     // Pass all component listeners directly to input
                     ...this.$listeners,
                     // Override input listener to work with v-model
-                    input: event => this.$emit('input', event.target.value)
+                    input: event => this.$emit('input', event.target.value),
+                    search: event => this.$emit('search', event.target.value)
                 }
             }
         }
