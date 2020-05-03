@@ -33,14 +33,13 @@
             async search() {
                 this.searched = true;
                 if(this.lastQuery === this.query) return;
-                console.log('szukam ' + this.query);
                 this.lastQuery = this.query;
 
                 let name, surname = null;
                 let splitQuery = this.query.split(' ');
                 const countOfParams = splitQuery.length;
                 if (countOfParams === 1) surname = splitQuery[0];
-                if (countOfParams === 2) {
+                if (countOfParams >= 2) {
                     name = splitQuery[0];
                     surname = splitQuery[1]
                 }
