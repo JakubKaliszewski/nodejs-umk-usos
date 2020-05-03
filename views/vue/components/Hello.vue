@@ -1,6 +1,7 @@
 <template>
     <div>
         <p>{{greeting}} World!</p>
+        <button @click="clicker">Kliknij {{name}} {{counter}} razy!</button>
     </div>
 </template>
 
@@ -8,9 +9,17 @@
     export default {
         data () {
             return {
-                greeting: 'Hello'
+                greeting: 'Hello',
+                name: 'Kaśka',
+                counter: 1
+            }
+        },
+        methods:{
+            clicker(){
+                this.counter++;
             }
         }
+
     }
 </script>
 

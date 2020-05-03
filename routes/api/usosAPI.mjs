@@ -5,9 +5,10 @@ export const usosApiRouter = express.Router();
 usosApiRouter.get('/user', async (request, response) => {
     const name = request.query.name;
     const surname = request.query.surname;
-    if(name === '' || surname === '' || name === undefined || surname === undefined)
+    if(surname === '' || surname === undefined)
         response.status(400).render('error', {status : 400});
-    else response.send(`${name} ${surname}`);
+    else if(name !== '' || name !== undefined) response.send(`${name} ${surname}`);
+    else response.send(`${surname}`);
 });
 
 //Get staff by userId

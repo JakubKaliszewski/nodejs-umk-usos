@@ -12,9 +12,6 @@ app.use(express.static('public'));
 app.get('/', function (req, res) {
     res.render('index', { title: 'UMK Users' })
 })
-app.get('/', function (req, res) {
-    res.render('index', { title: 'UMK Users' })
-})
 app.get('/about', function (req, res) {
     res.render('about', { title: 'O UMK Users' })
 })
