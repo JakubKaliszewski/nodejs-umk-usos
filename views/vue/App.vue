@@ -50,13 +50,7 @@
                 const response = await fetch(url);
                 const result = await response.json();
 
-                this.personResults.push({
-                    id: 1,
-                    surname: result.surname,
-                    name: result.name,
-                    role: result.role
-                })
-
+                this.personResults = new Array(result);
             }
         }
     }
