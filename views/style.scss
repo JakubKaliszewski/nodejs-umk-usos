@@ -19,6 +19,14 @@ h1, h2, h3, h4, h5, h6 {
   color: $font-color;
 }
 
+h1{
+  font-size: 130%;
+}
+
+h2{
+  font-size: 110%;
+}
+
 #main {
   min-height: 80vh;
 }
@@ -82,4 +90,10 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   align-items: center;
   color: $danger;
+}
+
+#about{
+  align-content: center;
+  align-items: center;
+  width: 80%;
 }

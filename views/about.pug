@@ -1,5 +1,7 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    h1.title= title
+    .container(id="about")
+        h2.title.is-small Cel projektu
+        p Zbudowanie aplikacji przetwarzającej dane uzyskane poprzez USOS API na potrzeby społeczności akademickiej UMK. Aplikacja składa się z implementacji serwera oraz klienta. Użytkownik korzysta z aplikacji poprzez stronę HTML. Tam wprowadza dane, które są przetwarzane na serwerze, a następnie wynik jest prezentowany w atrakcyjnej formie użytkownikowi. Rezultat działania my bać wynikiem złożenia informacji z minimum dwóch różnych metod API np: search2 - wyszukiwanie użytkownika USOS i na podstawie uzyskanego id szukamy informacji o zatrudnieniu za pomocą metody: staff. Zestaw dostępnych metod znajduje się na stronie USOSapi.
