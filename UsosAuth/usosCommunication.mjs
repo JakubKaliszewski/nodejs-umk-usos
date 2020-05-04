@@ -87,7 +87,7 @@ export default class UsosCommunication{
             signature_method: 'HMAC-SHA1',
             hash_function: (baseString, key) => crypto.createHmac('sha1', key).update(baseString).digest('base64')
         });
-        const url = query=== null || query=== undefined ? '`https://usosapps.umk.pl/services/users/search2?lang=pl' : `https://usosapps.umk.pl/services/users/search2?lang=pl&query=${query}`;
+        const url = query=== null || query=== undefined ? `${this.hostname}${this.searchUrl}?lang=pl` : `${this.hostname}${this.searchUrl}?lang=pl&query=${query}`;
         const response = await got.post(
             url,
             {headers: oauth.toHeader(oauth.authorize({url, method: 'POST'}))
