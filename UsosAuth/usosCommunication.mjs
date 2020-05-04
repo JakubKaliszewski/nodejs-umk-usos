@@ -24,8 +24,8 @@ export default class UsosCommunication{
     static hostname = "https://usosapps.umk.pl";
     static authorizeUrl = "/services/oauth/authorize";
     static requestTokenUrl = "/services/oauth/request_token";
-    static searchUrl = "/developers/api/services/users/#search2";
-    static staffUrl = "/developers/api/services/tt/#staff";
+    static searchUrl = "/services/users/search2";
+    static staffUrl = "/services/tt/staff";
 
     static async loadKeys(){
         if (this.keys === null)
@@ -52,34 +52,54 @@ export default class UsosCommunication{
             key: requestData.oauth_token,
             secret: requestData.oauth_token_secret,
         };
-
+        console.log(requestToken)
         return requestToken;
     }
 
+    //TODO do zrobienia od zera
     static async getAuthorize(token){
         await this.loadKeys();
-        const options = {
-            'method': 'POST',
-            'hostname': this.hostname,
-            'path': this.authorizeUrl,
-            'headers': {
-                'Content-Type': 'application/x-www-form-urlencoded',
+        const oauth = OAuth({
+            consumer: {
+                key: this.keys.consumerKey,
+                secret: this.keys.consumerSecret
             },
-            'maxRedirects': 20
-        };
-        const data = qs.stringify(
-            new OauthData(
-                token,
-                'http://127.0.0.1:3000/callback',
-                this.keys.consumerKey,
-                this.keys.consumerSecret
-                ));
+            signature_method: 'HMAC-SHA1',
+            oauth_token: token,
+            hash_function: (baseString, key) => crypto.createHmac('sha1', key).update(baseString).digest('base64')
+        });
 
-        await this.doRequest(options , data,null);
+        const url = this.hostname + this.authorizeUrl;
+        const response = await got.post(url, {
+            headers: oauth.toHeader(oauth.authorize({url, method: 'POST', data :{oauth_callback: "http://127.0.0.1:3000/callback"}}))
+        });
+        const requestData = qs.parse(response.body);
+        console.log(requestData)
     }
 
-    static async searchUser(name, surname){
-        //todo
+    static async searchUser(query){
+        await this.loadKeys();
+        const oauth = OAuth({
+            consumer: {
+                key: this.keys.consumerKey,
+                secret: this.keys.consumerSecret
+            },
+            signature_method: 'HMAC-SHA1',
+            hash_function: (baseString, key) => crypto.createHmac('sha1', key).update(baseString).digest('base64')
+        });
+        const url = query=== null || query=== undefined ? '`https://usosapps.umk.pl/services/users/search2?lang=pl' : `https://usosapps.umk.pl/services/users/search2?lang=pl&query=${query}`;
+        const response = await got.post(
+            url,
+            {headers: oauth.toHeader(oauth.authorize({url, method: 'POST'}))
+        });
+
+        const requestData = JSON.parse(response.body);
+        console.log(requestData.items);
+        console.log(requestData)
+    }
+
+    static async cleanTextFromTags(text){
+        return text.replace(/<\/?[^>]+(>|$)/g, "");
     }
 
     static async getUserStaffById(userId){

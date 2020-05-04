@@ -26,7 +26,11 @@
                 personResults: [],
                 query: '',
                 lastQuery: '',
-                hostname: window.location.host
+                hostname: window.location.host,
+                requestToken: {
+                    key: '',
+                    secret: ''
+                }
             }
         },
         methods: {

@@ -23,7 +23,7 @@ html
                 .navbar-end
                     .navbar-item
                         .buttons
-                            a.button.is-link
+                            a.button.is-link(onclick='logIn()')
                                 if session
                                     strong Wyloguj się
                                 else
@@ -45,3 +45,4 @@ html
                 |
                 | licensed.
     script(src='bundle.js')
+    script(src='functions.js')

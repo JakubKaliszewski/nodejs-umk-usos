@@ -1,6 +1,7 @@
 import express from 'express';
 import UsosCommunication from "./UsosAuth/usosCommunication.mjs";
 import {usosApiRouter}  from './routes/api/usosAPI.mjs';
+import {accountApiRouter} from "./routes/api/account.mjs";
 
 const port = process.env.PORT || 3000;
 const app = express();
@@ -17,7 +18,9 @@ app.get('/about', function (req, res) {
 })
 app.listen(port, () => console.log(`Server started on port ${port}`));
 app.use('/api/usos', usosApiRouter);
+app.use('/api/account', accountApiRouter);
 UsosCommunication.getRequestToken();
+UsosCommunication.searchUser("Barbara Polaszek");
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
