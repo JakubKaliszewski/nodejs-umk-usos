@@ -19,9 +19,9 @@ app.get('/about', function (req, res) {
 app.listen(port, () => console.log(`Server started on port ${port}`));
 app.use('/api/usos', usosApiRouter);
 app.use('/api/account', accountApiRouter);
-UsosCommunication.getRequestToken();
-UsosCommunication.searchUser("Barbara Polaszek");
-
+//UsosCommunication.getRequestToken();
+//UsosCommunication.searchUser("Barbara Polaszek");
+UsosCommunication.getUserStaffById('35511');
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     res.status = 404;

@@ -77,7 +77,7 @@ export default class UsosCommunication{
         console.log(requestData)
     }
 
-    static async searchUser(query){
+    static async searchUser(query, token){
         await this.loadKeys();
         const oauth = OAuth({
             consumer: {
@@ -95,14 +95,31 @@ export default class UsosCommunication{
 
         const requestData = JSON.parse(response.body);
         console.log(requestData.items);
-        console.log(requestData)
+        return requestData;
     }
 
     static async cleanTextFromTags(text){
         return text.replace(/<\/?[^>]+(>|$)/g, "");
     }
 
-    static async getUserStaffById(userId){
-        //todo
+    static async getUserStaffById(userId, token){
+        await this.loadKeys();
+        const oauth = OAuth({
+            consumer: {
+                key: this.keys.consumerKey,
+                secret: this.keys.consumerSecret
+            },
+            signature_method: 'HMAC-SHA1',
+            hash_function: (baseString, key) => crypto.createHmac('sha1', key).update(baseString).digest('base64')
+        });
+        const url = userId === null || userId === undefined ? `${this.hostname}${this.staffUrl}?user_id=` : `${this.hostname}${this.staffUrl}?user_id=${userId}`;
+        const response = await got.post(
+            url,
+            {headers: oauth.toHeader(oauth.authorize({url, method: 'POST'}))
+            });
+
+        const requestData = JSON.parse(response.body);
+        console.log(requestData)
+        return requestData;
     }
 }
