@@ -21,7 +21,8 @@ app.use('/api/usos', usosApiRouter);
 app.use('/api/account', accountApiRouter);
 //UsosCommunication.getRequestToken();
 //UsosCommunication.searchUser("Barbara Polaszek");
-UsosCommunication.getUserStaffById('35511');
+//UsosCommunication.getUserStaffById('35511');
+//UsosCommunication.getAuthorize();
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     res.status = 404;

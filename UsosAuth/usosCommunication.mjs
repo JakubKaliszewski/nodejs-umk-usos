@@ -27,6 +27,11 @@ export default class UsosCommunication{
     static searchUrl = "/services/users/search2";
     static staffUrl = "/services/tt/staff";
 
+    /*
+    1.request_token
+    2.authorize
+    3.access_token
+    */
     static async loadKeys(){
         if (this.keys === null)
             this.keys = await fileOperation.readFile(__dirname + this.apiKeysFile)
@@ -45,36 +50,19 @@ export default class UsosCommunication{
 
         const url = this.hostname + this.requestTokenUrl;
         const response = await got.post(url, {
-            headers: oauth.toHeader(oauth.authorize({url, method: 'POST', data :{oauth_callback: "http://127.0.0.1:3000/callback"}}))
+            headers: oauth.toHeader(oauth.authorize({url, method: 'POST', data :{oauth_callback: "http://127.0.0.1:3000/api/account/callback"}}))//TODO weź mój adres IP + api
         });
-        const requestData = qs.parse(response.body);
-        const requestToken =  {
-            key: requestData.oauth_token,
-            secret: requestData.oauth_token_secret,
-        };
-        console.log(requestToken)
-        return requestToken;
+        return qs.parse(response.body);
     }
 
     //TODO do zrobienia od zera
     static async getAuthorize(token){
-        await this.loadKeys();
-        const oauth = OAuth({
-            consumer: {
-                key: this.keys.consumerKey,
-                secret: this.keys.consumerSecret
-            },
-            signature_method: 'HMAC-SHA1',
-            oauth_token: token,
-            hash_function: (baseString, key) => crypto.createHmac('sha1', key).update(baseString).digest('base64')
-        });
+        if(token === null || token === undefined || token === '')
+            token = await this.getRequestToken();
+        const url = `${this.hostname}${this.authorizeUrl}?${qs.stringify(token)}`;
+        return {url: url, token: token};
 
-        const url = this.hostname + this.authorizeUrl;
-        const response = await got.post(url, {
-            headers: oauth.toHeader(oauth.authorize({url, method: 'POST', data :{oauth_callback: "http://127.0.0.1:3000/callback"}}))
-        });
-        const requestData = qs.parse(response.body);
-        console.log(requestData)
+        //trzeba przekierować za pomocą window.local pod wskazany link
     }
 
     static async searchUser(query, token){
