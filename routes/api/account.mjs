@@ -3,6 +3,8 @@ import usosCommunication from "../../UsosAuth/usosCommunication.mjs";
 import got from "got";
 import OAuth from "oauth-1.0a";
 import crypto from "crypto";
+import * as qs from 'querystring';
+
 
 export const accountApiRouter = express.Router();
 
@@ -15,7 +17,7 @@ accountApiRouter.get('/login', async (request, response) => {
 
     accountApiRouter.get('/callback/', async function (request, response) {
         const oauth_verifier = request.query.oauth_verifier;
-
+        const keys = await usosCommunication.getKeys();
         const token = {
             key: oauth_token,
             secret: oauth_token_secret
@@ -23,15 +25,21 @@ accountApiRouter.get('/login', async (request, response) => {
 
         const oauth = OAuth({
             consumer: {
-                consumer_key: usosCommunication.keys.consumer_key,
-                consumer_secret: usosCommunication.keys.consumer_secret,
+                key: keys.consumerKey,
+                secret: keys.consumerSecret
             },
             signature_method: 'HMAC-SHA1',
             hash_function: (baseString, key) => crypto.createHmac('sha1', key).update(baseString).digest('base64')
         });
 
         const url = 'https://usosapps.umk.pl/services/oauth/access_token';
-        const tokenResponse = await got.post(url, { headers: oauth.toHeader(oauth.authorize({ url, method: "POST", oauth_verifier: oauth_verifier }, token))});
+        const tokenResponse = await got.post(url, {
+            headers: oauth.toHeader(oauth.authorize({
+                url,
+                method: "POST",
+                data: {oauth_verifier: oauth_verifier}
+            }, token))
+        });
 
         const perm_data = qs.parse(tokenResponse.body);
 

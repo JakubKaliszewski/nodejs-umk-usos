@@ -35,6 +35,10 @@ export default class UsosCommunication{
             this.keys = await fileOperation.readFile(__dirname + this.apiKeysFile)
     }
 
+    static async getKeys(){
+        return this.keys;
+    }
+
     static async getRequestToken(){
         await this.loadKeys();
         const oauth = OAuth({
