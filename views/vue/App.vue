@@ -48,7 +48,7 @@
                     surname = splitQuery[1]
                 }
                 const searchParams = countOfParams === 1 ? {'surname': surname} : {'surname': surname, 'name': name};
-                const url = new URL('http://' + this.hostname + '/api/usos/user'),
+                const url = new URL('https://' + this.hostname + '/api/usos/user'),
                     params = searchParams
                 Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
                 const response = await fetch(url);

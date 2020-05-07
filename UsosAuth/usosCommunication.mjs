@@ -52,7 +52,7 @@ export default class UsosCommunication{
 
         const url = this.hostname + this.requestTokenUrl;
         const response = await got.post(url, {
-            headers: oauth.toHeader(oauth.authorize({url, method: 'POST', data :{oauth_callback: `http://${this.hostAddress}:3000/api/account/callback`}}))
+            headers: oauth.toHeader(oauth.authorize({url, method: 'POST', data :{oauth_callback: `https://${this.hostAddress}:3000/api/account/callback`}}))
         });
         return qs.parse(response.body);
     }

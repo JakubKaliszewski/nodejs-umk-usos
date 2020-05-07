@@ -14,7 +14,7 @@ async function logIn() {
         console.log("Pozyskamy token!");
         //get na authorize
         //dostajemy url
-        const urlFetch = new URL('http://' + hostname + '/api/account/login');
+        const urlFetch = new URL('https://' + hostname + '/api/account/login');
         const response = await fetch(urlFetch);
         const json = await response.json();
         setWithExpiry(key, {oauth_token:json.oauth_token});

@@ -5,7 +5,6 @@ import OAuth from "oauth-1.0a";
 import crypto from "crypto";
 import * as qs from 'querystring';
 
-
 export const accountApiRouter = express.Router();
 
 //login
@@ -15,13 +14,14 @@ accountApiRouter.get('/login', async (request, response) => {
     const oauth_token_secret = urlLinkAndToken.oauth_token.oauth_token_secret;
     response.json(urlLinkAndToken);
 
+    const token = {
+        key: oauth_token,
+        secret: oauth_token_secret
+    };
+
     accountApiRouter.get('/callback/', async function (request, response) {
         const oauth_verifier = request.query.oauth_verifier;
         const keys = await usosCommunication.getKeys();
-        const token = {
-            key: oauth_token,
-            secret: oauth_token_secret
-        };
 
         const oauth = OAuth({
             consumer: {
