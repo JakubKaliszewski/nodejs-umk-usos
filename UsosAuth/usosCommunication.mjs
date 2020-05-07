@@ -26,6 +26,7 @@ export default class UsosCommunication{
     static requestTokenUrl = "/services/oauth/request_token";
     static searchUrl = "/services/users/search2";
     static staffUrl = "/services/tt/staff";
+    static accessTokenUrl = "/services/oauth/access_token";
 
     /*
     1.request_token
@@ -55,12 +56,30 @@ export default class UsosCommunication{
         return qs.parse(response.body);
     }
 
+    static async getAccessToken(oauthData){
+        await this.loadKeys();
+        const oauth = OAuth({
+            consumer: {
+                key: this.keys.consumerKey,
+                secret: this.keys.consumerSecret
+            },
+            signature_method: 'HMAC-SHA1',
+            hash_function: (baseString, key) => crypto.createHmac('sha1', key).update(baseString).digest('base64')
+        });
+
+        const url = this.hostname + this.accessTokenUrl;
+        const response = await got.post(url, {
+            headers: oauth.toHeader(oauth.authorize({url, method: 'POST', data :{oauth_callback: "http://127.0.0.1:3000/api/account/callback"}}))//TODO weź mój adres IP + api
+        });
+        return qs.parse(response.body);
+    }
+
     //TODO do zrobienia od zera
     static async getAuthorize(token){
         if(token === null || token === undefined || token === '')
             token = await this.getRequestToken();
         const url = `${this.hostname}${this.authorizeUrl}?${qs.stringify(token)}`;
-        return {url: url, token: token};
+        return {url: url, oauth_token: token};
 
         //trzeba przekierować za pomocą window.local pod wskazany link
     }

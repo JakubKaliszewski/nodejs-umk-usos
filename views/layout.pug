@@ -1,4 +1,3 @@
--var session = false;
 doctype html
 html
     head
@@ -24,10 +23,7 @@ html
                     .navbar-item
                         .buttons
                             a.button.is-link(id="login" onclick='logIn()')
-                                if session
-                                    strong Wyloguj się
-                                else
-                                    strong Zaloguj się
+
         #main(class='container')
 
             block content

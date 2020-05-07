@@ -17,9 +17,10 @@ async function logIn() {
         const urlFetch = new URL('http://' + hostname + '/api/account/login');
         const response = await fetch(urlFetch);
         const json = await response.json();
+        setWithExpiry(key, {oauth_token:json.oauth_token});
         window.location = json.url;
         //przekierowało do logowania
-    } else if(button.value === "Wyloguj się"){
+    } else if(button.text === "Wyloguj się"){
         localStorage.removeItem(key);
         console.log("Usunięto token!");
     }
@@ -28,8 +29,8 @@ async function logIn() {
 function loginButtonText() {
     const value = getWithExpiry(key);
     if(value === null)
-        button.value="Zaloguj się";
-    else button.value="Wyloguj się";
+        button.text = "Zaloguj się";
+    else button.text = "Wyloguj się";
 }
 
 function setWithExpiry(key, value) {
