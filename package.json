@@ -39,6 +39,7 @@
     "bulma": "^0.8.2",
     "css-loader": "^3.5.3",
     "install": "^0.13.0",
+    "ip": "^1.1.5",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.2.1",

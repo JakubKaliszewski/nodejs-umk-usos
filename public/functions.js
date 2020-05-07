@@ -22,6 +22,7 @@ async function logIn() {
         //przekierowało do logowania
     } else if(button.text === "Wyloguj się"){
         localStorage.removeItem(key);
+        await loginButtonText();
         console.log("Usunięto token!");
     }
 }
