@@ -34,7 +34,11 @@ app.use(async function(request, response) {
 app.use(session({
     secret: Math.random().toString(36).substring(2),
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie:{
+        maxAge: 72000000,
+        secure: true
+    }
 }));
 
 // Certyfikat dla https-a
