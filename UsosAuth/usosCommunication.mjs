@@ -27,7 +27,6 @@ export default class UsosCommunication{
     static requestTokenUrl = "/services/oauth/request_token";
     static searchUrl = "/services/users/search2";
     static staffUrl = "/services/tt/staff";
-    static accessTokenUrl = "/services/oauth/access_token";
     static hostAddress = ip.address().toString();
 
     static async loadKeys(){
@@ -35,7 +34,7 @@ export default class UsosCommunication{
             this.keys = await fileOperation.readFile(__dirname + this.apiKeysFile)
     }
 
-    static async getKeys(){
+    static getKeys(){
         return this.keys;
     }
 
@@ -57,10 +56,9 @@ export default class UsosCommunication{
         return qs.parse(response.body);
     }
 
-    static async getAuthorize(token){
-        if(token === null || token === undefined || token === '')
-            token = await this.getRequestToken();
-        const url = `${this.hostname}${this.authorizeUrl}?${qs.stringify(token)}`;
+    static async getAuthorize(){
+        let token = await this.getRequestToken();
+        let url = `${this.hostname}${this.authorizeUrl}?${qs.stringify(token)}`;
         return {url: url, oauth_token: token};
 
         //trzeba przekierować za pomocą window.local pod wskazany link

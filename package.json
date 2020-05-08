@@ -25,9 +25,12 @@
   "homepage": "https://github.com/JakubKaliszewski/MP-NODEJS-USOS#readme",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
+    "bulma": "^0.8.2",
     "express": "~4.17.1",
+    "express-session": "^1.17.1",
     "file-loader": "^6.0.0",
     "got": "^11.0.3",
+    "ip": "^1.1.5",
     "oauth-1.0a": "^2.2.6",
     "pug": "^2.0.4",
     "vue": "^2.6.11"
@@ -36,10 +39,7 @@
     "@babel/preset-env": "^7.9.6",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.1.0",
-    "bulma": "^0.8.2",
     "css-loader": "^3.5.3",
-    "install": "^0.13.0",
-    "ip": "^1.1.5",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.2.1",
