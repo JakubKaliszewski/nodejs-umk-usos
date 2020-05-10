@@ -1,5 +1,17 @@
 import express from 'express';
+import session from "express-session";
 export const usosApiRouter = express.Router();
+/* Ustawienia sesji */
+const sessionSettings = session({
+    secret: Math.random().toString(36).substring(2),
+    resave: false,
+    saveUninitialized: true,
+    cookie:{
+        maxAge: 7200000,
+        secure: true
+    }
+});
+usosApiRouter.use(sessionSettings);
 
 //Get user
 usosApiRouter.get('/user', async (request, response) => {

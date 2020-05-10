@@ -1,11 +1,13 @@
 import express from 'express';
-import session from 'express-session';
 import {usosApiRouter}  from './routes/api/usosAPI.mjs';
 import {accountApiRouter} from "./routes/api/account.mjs";
 import * as https from 'https';
 import * as fs from 'fs';
+import ip from "ip";
 
 const port = process.env.PORT || 3000;
+export const hostAddress = ip.address().toString();
+
 const app = express();
 
 /* Ustawienia serwera */
@@ -30,20 +32,9 @@ app.use(async function(request, response) {
     response.render('error', {status: 404});
 });
 
-// Ustawienie sesji dla identyfikacji klientów
-app.use(session({
-    secret: Math.random().toString(36).substring(2),
-    resave: false,
-    saveUninitialized: true,
-    cookie:{
-        maxAge: 72000000,
-        secure: true
-    }
-}));
-
 // Certyfikat dla https-a
 https.createServer({
     key: fs.readFileSync('./key.pem'),
     cert: fs.readFileSync('./cert.pem'),
     passphrase: 'zaq1@WSX'
-}, app).listen(port, () => console.log(`Server started on https://localhost:${port}`));
+}, app).listen(port, () => console.log(`Server started on https://${hostAddress}:${port}`));

@@ -14,7 +14,7 @@ import OAuth from "oauth-1.0a";
 import * as qs from 'querystring';
 import path from 'path';
 import crypto from "crypto";
-import ip from 'ip';
+import {hostAddress} from "../index.mjs";
 
 const __dirname = path.resolve();
 
@@ -27,7 +27,6 @@ export default class UsosCommunication{
     static requestTokenUrl = "/services/oauth/request_token";
     static searchUrl = "/services/users/search2";
     static staffUrl = "/services/tt/staff";
-    static hostAddress = ip.address().toString();
 
     static async loadKeys(){
         if (this.keys === null)
@@ -51,7 +50,7 @@ export default class UsosCommunication{
 
         const url = this.hostname + this.requestTokenUrl;
         const response = await got.post(url, {
-            headers: oauth.toHeader(oauth.authorize({url, method: 'POST', data :{oauth_callback: `https://${this.hostAddress}:3000/api/account/callback`}}))
+            headers: oauth.toHeader(oauth.authorize({url, method: 'POST', data :{oauth_callback: `https://${hostAddress}:3000/api/account/callback`}}))
         });
         return qs.parse(response.body);
     }
