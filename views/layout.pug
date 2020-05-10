@@ -22,7 +22,8 @@ html
                 .navbar-end
                     .navbar-item
                         .buttons
-                            a.button.is-link(id="login" onclick='logIn()')
+                            a.button.is-link(id="login" onclick='logInOut()')
+                                | #{loginStatus}
 
         #main(class='container')
 

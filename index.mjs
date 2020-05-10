@@ -4,11 +4,13 @@ import {accountApiRouter} from "./routes/api/account.mjs";
 import * as https from 'https';
 import * as fs from 'fs';
 import ip from "ip";
+import {sessionSettings} from "./sessionSettings.mjs";
 
 const port = process.env.PORT || 3000;
 export const hostAddress = ip.address().toString();
 
 const app = express();
+app.use(sessionSettings);
 
 /* Ustawienia serwera */
 app.set('view engine', 'pug');
@@ -16,11 +18,13 @@ app.set('view engine', 'pug');
 app.use(express.static('public'));
 // Punkt dostępu / - strona główna
 app.get('/', async function (request, response) {
-    response.render('index', { title: 'UMK Users' })
+    let loginStatus = getLoginStatus(request);
+    response.render('index', { title: 'UMK Users', loginStatus: loginStatus })
 });
 // Punkt dostępny /about - O stronie
 app.get('/about', async function (request, response) {
-    response.render('about', { title: 'O UMK Users' })
+    let loginStatus = getLoginStatus(request);
+    response.render('about', { title: 'O UMK Users', loginStatus: loginStatus })
 });
 // Punkt dostępowy dla API pozyskiwania informacji z Usosa
 app.use('/api/usos', usosApiRouter);
@@ -29,7 +33,8 @@ app.use('/api/account', accountApiRouter);
 // Wyłapuje próbę dostępu do niezdefiniowanego punktu, strona status 404
 app.use(async function(request, response) {
     response.status = 404;
-    response.render('error', {status: 404});
+    let loginStatus = getLoginStatus(request);
+    response.render('error', {status: 404, loginStatus: loginStatus});
 });
 
 // Certyfikat dla https-a
@@ -38,3 +43,12 @@ https.createServer({
     cert: fs.readFileSync('./cert.pem'),
     passphrase: 'zaq1@WSX'
 }, app).listen(port, () => console.log(`Server started on https://${hostAddress}:${port}`));
+
+
+function getLoginStatus(request) {
+    if(request.session === undefined)
+        return "Zaloguj się";
+    if(request.session.oauth_access_token === undefined)
+        return "Zaloguj się";
+    return "Wyloguj się";
+}

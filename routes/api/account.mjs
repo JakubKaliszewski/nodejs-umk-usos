@@ -4,19 +4,10 @@ import got from "got";
 import OAuth from "oauth-1.0a";
 import crypto from "crypto";
 import * as qs from 'querystring';
-import session from "express-session";
+import {sessionSettings} from "../../sessionSettings.mjs";
 
 export const accountApiRouter = express.Router();
-/* Ustawienia sesji */
-const sessionSettings = session({
-    secret: Math.random().toString(36).substring(2),
-    resave: false,
-    saveUninitialized: true,
-    cookie:{
-        maxAge: 7200000,
-        secure: true
-    }
-});
+
 accountApiRouter.use(sessionSettings);
 
 //login
@@ -66,6 +57,8 @@ accountApiRouter.get('/callback/', async function (request, response) {
     });
 
     const perm_data = qs.parse(tokenResponse.body);
+    request.session.oauth_access_token = perm_data.oauth_token;
+    request.session.oauth_secret_token = perm_data.oauth_token_secret;
 
     console.log("[Debug] Info o uzyskanych kodach:");
     console.log(perm_data);
