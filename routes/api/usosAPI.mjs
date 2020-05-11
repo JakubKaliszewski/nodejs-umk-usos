@@ -1,17 +1,30 @@
 import express from 'express';
 import {sessionSettings} from "../../sessionSettings.mjs";
+import usosCommunication from "../../UsosAuth/usosCommunication.mjs";
 export const usosApiRouter = express.Router();
 
 usosApiRouter.use(sessionSettings);
 
 //Get user
 usosApiRouter.get('/user', async (request, response) => {
+    let query;
+    const access_token = request.session.oauth_access_token
+    const access_token_secret = request.session.oauth_secret_token;
+    const token = {
+        key: access_token,
+        secret: access_token_secret
+    };
+
     const name = request.query.name;
     const surname = request.query.surname;
     if(surname === '' || surname === undefined)
         response.status(400).render('error', {status : 400});
-    else if(name !== '' || name !== undefined) response.json({id: 1, name:name, surname: surname, role: 'Student'});
-    else response.json({id: 1, surname: surname, role: 'Student'});
+
+    if(name !== undefined)
+        query = `${name} ${surname}`;
+    else query = surname;
+    const users = await usosCommunication.searchUser(query, token);
+    response.json(users);
 });
 
 //Get staff by userId

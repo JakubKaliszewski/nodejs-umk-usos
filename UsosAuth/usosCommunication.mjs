@@ -59,8 +59,6 @@ export default class UsosCommunication{
         let token = await this.getRequestToken();
         let url = `${this.hostname}${this.authorizeUrl}?${qs.stringify(token)}`;
         return {url: url, oauth_token: token};
-
-        //trzeba przekierować za pomocą window.local pod wskazany link
     }
 
     static async searchUser(query, token){
@@ -76,7 +74,7 @@ export default class UsosCommunication{
         const url = query=== null || query=== undefined ? `${this.hostname}${this.searchUrl}?lang=pl` : `${this.hostname}${this.searchUrl}?lang=pl&query=${query}`;
         const response = await got.post(
             url,
-            {headers: oauth.toHeader(oauth.authorize({url, method: 'POST'}))
+            {headers: oauth.toHeader(oauth.authorize({url, method: 'POST'}, token))
         });
 
         const requestData = JSON.parse(response.body);
