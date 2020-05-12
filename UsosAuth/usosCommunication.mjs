@@ -82,9 +82,7 @@ export default class UsosCommunication{
         return requestData;
     }
 
-    static async cleanTextFromTags(text){
-        return text.replace(/<\/?[^>]+(>|$)/g, "");
-    }
+
 
     static async getUserStaffById(userId, token){
         await this.loadKeys();

@@ -23,7 +23,13 @@ usosApiRouter.get('/user', async (request, response) => {
     if(name !== undefined)
         query = `${name} ${surname}`;
     else query = surname;
-    const users = await usosCommunication.searchUser(query, token);
+    const responseUsers = await usosCommunication.searchUser(query, token);
+    let users = [];
+    responseUsers.items.forEach((user) => {
+        let cleanUser = cleanTextFromTags(user.match);
+        user.match = cleanUser;
+        users.push({name: user.match, id: user.user.id});
+    })
     response.json(users);
 });
 
@@ -34,3 +40,8 @@ usosApiRouter.get('/staff', async (request, response) => {
         response.status(400).render('error', {status : 400});
     else response.send(userId);
 });
+
+function cleanTextFromTags(text){
+    return text.replace(/<\/?[^>]+(>|$)/g, "");
+}
+
