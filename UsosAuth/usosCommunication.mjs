@@ -27,14 +27,15 @@ export default class UsosCommunication{
     static requestTokenUrl = "/services/oauth/request_token";
     static searchUrl = "/services/users/search2";
     static staffUrl = "/services/tt/staff";
+    static revokeUrl = "/services/oauth/revoke_token";
 
     static async loadKeys(){
         if (this.keys === null)
             this.keys = await fileOperation.readFile(__dirname + this.apiKeysFile)
     }
 
-    static getKeys(){
-        return this.keys;
+    static async getKeys(){
+        return await this.loadKeys();
     }
 
     static async getRequestToken(){
@@ -103,5 +104,25 @@ export default class UsosCommunication{
         const requestData = JSON.parse(response.body);
         console.log(requestData)
         return requestData;
+    }
+
+    static async revokeToken(token){
+        await this.loadKeys();
+        const oauth = OAuth({
+            consumer: {
+                key: this.keys.consumerKey,
+                secret: this.keys.consumerSecret
+            },
+            signature_method: 'HMAC-SHA1',
+            hash_function: (baseString, key) => crypto.createHmac('sha1', key).update(baseString).digest('base64')
+        });
+        const url = `${this.hostname}${this.revokeUrl}`;
+        const response = await got.post(
+            url,
+            {
+                headers: oauth.toHeader(oauth.authorize({url, method: 'POST'}, token))
+            });
+
+        console.log(response.status);
     }
 }

@@ -13,14 +13,28 @@ accountApiRouter.use(sessionSettings);
 //login
 accountApiRouter.get('/login', async (request, response) => {
     console.log(request.session.id);
+    if(request.session.oauth_access_token === undefined){
+        const urlLinkAndToken = await usosCommunication.getAuthorize();
+        const oauth_token = urlLinkAndToken.oauth_token.oauth_token;
+        const oauth_token_secret = urlLinkAndToken.oauth_token.oauth_token_secret;
 
-    const urlLinkAndToken = await usosCommunication.getAuthorize();
-    const oauth_token = urlLinkAndToken.oauth_token.oauth_token;
-    const oauth_token_secret = urlLinkAndToken.oauth_token.oauth_token_secret;
+        request.session.requestToken = oauth_token;
+        request.session.requestTokenSecret = oauth_token_secret;
+        response.json(urlLinkAndToken);
+    }else{
+        const logoutUrl = 'https://usosweb.umk.pl/kontroler.php?_action=logowaniecas/wyloguj';
+        //revoke token
+        const access_token = request.session.oauth_access_token
+        const access_token_secret = request.session.oauth_secret_token;
+        const token = {
+            key: access_token,
+            secret: access_token_secret
+        };
 
-    request.session.requestToken = oauth_token;
-    request.session.requestTokenSecret = oauth_token_secret;
-    response.json(urlLinkAndToken);
+
+
+    }
+
 });
 
 //callback dla Oauth1.0a z login.umk.pl

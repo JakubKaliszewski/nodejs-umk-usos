@@ -44,4 +44,4 @@ usosApiRouter.get('/staff', async (request, response) => {
 function cleanTextFromTags(text){
     return text.replace(/<\/?[^>]+(>|$)/g, "");
 }
-
+//todo https://usosapps.umk.pl/developers/api/services/users/#user
