@@ -96,7 +96,7 @@ export default class UsosCommunication{
 
     //https://usosapps.umk.pl/developers/api/services/users/#user
     static async searchUserDetails(userId, token){
-        const fields = "titles|student_status|staff_status|email|homepage_url|photo_urls|student_programmes|employment_functions|employment_positions|student_number"
+        const fields = "titles|student_status|staff_status|email|homepage_url|photo_urls|employment_functions|employment_positions|student_number"
         await this.loadKeys();
         const oauth = OAuth({
             consumer: {
@@ -113,7 +113,6 @@ export default class UsosCommunication{
             });
 
         const requestData = JSON.parse(response.body);
-        console.log(requestData.items);
         return requestData;
     }
 
@@ -136,7 +135,6 @@ export default class UsosCommunication{
             });
 
         const requestData = JSON.parse(response.body);
-        console.log(requestData)
         return requestData;
     }
 

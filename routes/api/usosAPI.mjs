@@ -1,6 +1,7 @@
 import express from 'express';
 import {sessionSettings} from "../../sessionSettings.mjs";
 import usosCommunication from "../../UsosAuth/usosCommunication.mjs";
+import UsosUserResponse from "../../UsosAuth/usosUserResponse.mjs";
 
 export const usosApiRouter = express.Router();
 
@@ -43,11 +44,11 @@ usosApiRouter.get('/user', async (request, response) => {
         let details = [];
         for (const user of users) {
             let userDetails = await usosCommunication.searchUserDetails(user.id, token);
-            //transformacja do obiektu, about flagą czy coś dodatkowego jest
+            let usosUser = new UsosUserResponse(user, userDetails);
+            details.push(usosUser);
         }
-    }
-
-    response.json(users);
+        response.json(details);
+    }else response.json(users);
 });
 
 //Get staff by userId

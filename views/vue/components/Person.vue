@@ -1,19 +1,45 @@
 <template>
     <div class="person">
         <div class="box">
-            <article class="media">
+            <article v-if="person.about === false" class="media">
                 <div class="media-left">
-                    <figure class="image is-64x64">
+                    <figure class="image is-50x50">
                         <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
                     </figure>
                 </div>
                 <div class="media-content">
                     <div class="content">
                         <div>
-                            <strong>{{person.name}}</strong> <small>@{{person.id}}</small>
+                            <strong>{{person.name}}</strong> <small>@nieznana rola</small>
                             <br>
-                            <p v-if="person.about !== false">
-
+                            <p>
+                                Brak szczegółowych informacji.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article v-if="person.about === true" class="media">
+                <div class="media-left">
+                    <figure class="image is-50x50">
+                        <img :src="person.image"alt="Image">
+                    </figure>
+                </div>
+                <div class="media-content">
+                    <div class="content">
+                        <div>
+                            <div v-if="person.title !== ''">
+                                <strong>{{person.title}} {{person.name}}</strong> <small>@{{person.rule}}</small>
+                            </div>
+                            <div v-else>
+                                <strong>{{person.name}}</strong> <small>@{{person.rule}}</small>
+                            </div>
+                            <br>
+                            <p>
+                                <strong>Wydział: </strong>{{person.faculty}}<br>
+                                <strong>Pozycja: </strong>{{person.position}}<br>
+                                <strong>E-mail: </strong>{{person.email}}<br>
+                                <strong>Strona www: </strong>{{person.homepage}}<br>
                             </p>
                         </div>
                     </div>
@@ -40,3 +66,7 @@
 <style scoped>
 
 </style>
+<div>
+
+</div>
+
