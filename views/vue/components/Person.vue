@@ -9,12 +9,13 @@
                 </div>
                 <div class="media-content">
                     <div class="content">
-                        <p>
-                            <strong>{{person.name}} {{person.surname}}</strong> <small>@{{person.role}}</small>
+                        <div>
+                            <strong>{{person.name}}</strong> <small>@{{person.id}}</small>
                             <br>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa
-                            fringilla egestas. Nullam condimentum luctus turpis.
-                        </p>
+                            <p v-if="person.about !== null">
+                                {{person.about}}
+                            </p>
+                        </div>
                     </div>
                 </div>
             </article>

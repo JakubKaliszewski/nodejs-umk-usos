@@ -28,7 +28,7 @@ usosApiRouter.get('/user', async (request, response) => {
     responseUsers.items.forEach((user) => {
         let cleanUser = cleanTextFromTags(user.match);
         user.match = cleanUser;
-        users.push({name: user.match, id: user.user.id});
+        users.push({name: user.match, id: user.user.id, about: null});
     })
     response.json(users);
 });

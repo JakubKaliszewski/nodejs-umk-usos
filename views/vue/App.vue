@@ -54,7 +54,7 @@
                 const response = await fetch(url);
                 const result = await response.json();
 
-                this.personResults = new Array(result);
+                this.personResults = result;
             }
         }
     }
