@@ -90,7 +90,6 @@ export default class UsosCommunication{
 
 
         const requestData = JSON.parse(response.body);
-        console.log(requestData.items);
         return requestData;
     }
 
@@ -110,28 +109,6 @@ export default class UsosCommunication{
         const response = await got.get(
             url,
             {headers: oauth.toHeader(oauth.authorize({url, method: 'GET'}, token))
-            });
-
-        const requestData = JSON.parse(response.body);
-        return requestData;
-    }
-
-
-
-    static async getUserStaffById(userId, token){
-        await this.loadKeys();
-        const oauth = OAuth({
-            consumer: {
-                key: this.keys.consumerKey,
-                secret: this.keys.consumerSecret
-            },
-            signature_method: 'HMAC-SHA1',
-            hash_function: (baseString, key) => crypto.createHmac('sha1', key).update(baseString).digest('base64')
-        });
-        const url = userId === null || userId === undefined ? `${this.hostname}${this.staffUrl}?user_id=` : `${this.hostname}${this.staffUrl}?user_id=${userId}`;
-        const response = await got.post(
-            url,
-            {headers: oauth.toHeader(oauth.authorize({url, method: 'POST'}))
             });
 
         const requestData = JSON.parse(response.body);
