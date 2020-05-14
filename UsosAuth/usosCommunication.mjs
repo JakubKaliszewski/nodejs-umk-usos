@@ -27,7 +27,6 @@ export default class UsosCommunication{
     static requestTokenUrl = "/services/oauth/request_token";
     static searchUrl = "/services/users/search2";
     static searchUserDetailsUrl = "/services/users/user";
-    static staffUrl = "/services/tt/staff";
     static revokeUrl = "/services/oauth/revoke_token";
 
     static async loadKeys(){
