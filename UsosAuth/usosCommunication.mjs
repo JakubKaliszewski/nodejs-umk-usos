@@ -26,6 +26,7 @@ export default class UsosCommunication{
     static authorizeUrl = "/services/oauth/authorize";
     static requestTokenUrl = "/services/oauth/request_token";
     static searchUrl = "/services/users/search2";
+    static searchUserDetailsUrl = "/services/users/user";
     static staffUrl = "/services/tt/staff";
     static revokeUrl = "/services/oauth/revoke_token";
 
@@ -64,6 +65,7 @@ export default class UsosCommunication{
     }
 
     static async searchUser(query, token){
+        let response;
         await this.loadKeys();
         const oauth = OAuth({
             consumer: {
@@ -74,10 +76,41 @@ export default class UsosCommunication{
             hash_function: (baseString, key) => crypto.createHmac('sha1', key).update(baseString).digest('base64')
         });
         const url = query=== null || query=== undefined ? `${this.hostname}${this.searchUrl}?lang=pl` : `${this.hostname}${this.searchUrl}?lang=pl&query=${query}`;
-        const response = await got.post(
-            url,
-            {headers: oauth.toHeader(oauth.authorize({url, method: 'POST'}, token))
+        if(token !== null){
+             response = await got.post(
+                url,
+                {headers: oauth.toHeader(oauth.authorize({url, method: 'POST'}, token))
+                });
+        }else{
+            response = await got.post(
+                url,
+                {headers: oauth.toHeader(oauth.authorize({url, method: 'POST'}))
+                });
+        }
+
+
+        const requestData = JSON.parse(response.body);
+        console.log(requestData.items);
+        return requestData;
+    }
+
+    //https://usosapps.umk.pl/developers/api/services/users/#user
+    static async searchUserDetails(userId, token){
+        const fields = "titles|student_status|staff_status|email|homepage_url|photo_urls|student_programmes|employment_functions|employment_positions|student_number"
+        await this.loadKeys();
+        const oauth = OAuth({
+            consumer: {
+                key: this.keys.consumerKey,
+                secret: this.keys.consumerSecret
+            },
+            signature_method: 'HMAC-SHA1',
+            hash_function: (baseString, key) => crypto.createHmac('sha1', key).update(baseString).digest('base64')
         });
+        const url =`${this.hostname}${this.searchUserDetailsUrl}?user_id=${userId}&fields=${fields}`;
+        const response = await got.get(
+            url,
+            {headers: oauth.toHeader(oauth.authorize({url, method: 'GET'}, token))
+            });
 
         const requestData = JSON.parse(response.body);
         console.log(requestData.items);

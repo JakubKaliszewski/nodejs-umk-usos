@@ -12,8 +12,8 @@
                         <div>
                             <strong>{{person.name}}</strong> <small>@{{person.id}}</small>
                             <br>
-                            <p v-if="person.about !== null">
-                                {{person.about}}
+                            <p v-if="person.about !== false">
+
                             </p>
                         </div>
                     </div>
