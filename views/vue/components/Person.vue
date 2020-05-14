@@ -24,8 +24,6 @@
 </template>
 
 <script>
-    import PersonDetails from "./PersonDetails.vue";
-
     export default {
         props: {
             person: {
@@ -34,7 +32,7 @@
             }
         },
         name: "Person",
-        components: {PersonDetails},
+        components: {},
         methods: {}
     }
 </script>
