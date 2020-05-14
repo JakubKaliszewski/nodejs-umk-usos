@@ -3,7 +3,7 @@
 
 ## Zawartość
 
-- [UMK Dashboard](#umk-dashboard)
+- [UMK Users](#umk-users)
   - [Zawartość](#zawarto%c5%9b%c4%87)
   - [Cel projektu](#cel-projektu)
   - [Opis](#opis)
