@@ -12,7 +12,6 @@ accountApiRouter.use(sessionSettings);
 
 //login
 accountApiRouter.get('/login', async (request, response) => {
-    console.log(request.session.id);
     if(request.session.oauth_access_token === undefined){
         const urlLinkAndToken = await usosCommunication.getAuthorize();
         const oauth_token = urlLinkAndToken.oauth_token.oauth_token;
@@ -31,16 +30,14 @@ accountApiRouter.get('/login', async (request, response) => {
             secret: access_token_secret
         };
 
-
-
+        await usosCommunication.revokeToken(token);
+        request.session.destroy();
+        response.json({url: logoutUrl});
     }
-
 });
 
 //callback dla Oauth1.0a z login.umk.pl
 accountApiRouter.get('/callback/', async function (request, response) {
-    console.log(request.session.id);
-
     const oauth_verifier = request.query.oauth_verifier;
     const keys = await usosCommunication.getKeys();
 
@@ -74,14 +71,5 @@ accountApiRouter.get('/callback/', async function (request, response) {
     request.session.oauth_access_token = perm_data.oauth_token;
     request.session.oauth_secret_token = perm_data.oauth_token_secret;
 
-    console.log("[Debug] Info o uzyskanych kodach:");
-    console.log(perm_data);
-
     response.redirect('/');
-});
-
-
-//logout
-accountApiRouter.get('/logout', async (request, response) => {
-
 });

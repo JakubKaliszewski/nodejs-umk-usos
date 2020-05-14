@@ -31,12 +31,12 @@ h2{
   font-weight: bold;
 }
 
-#main {
-  min-height: 80vh;
-}
-
 .footer {
-  padding: 1.5em;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding-bottom: 3rem;
 }
 
 .is-danger {

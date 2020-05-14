@@ -35,7 +35,8 @@ export default class UsosCommunication{
     }
 
     static async getKeys(){
-        return await this.loadKeys();
+        await this.loadKeys();
+        return this.keys;
     }
 
     static async getRequestToken(){
@@ -122,7 +123,5 @@ export default class UsosCommunication{
             {
                 headers: oauth.toHeader(oauth.authorize({url, method: 'POST'}, token))
             });
-
-        console.log(response.status);
     }
 }
