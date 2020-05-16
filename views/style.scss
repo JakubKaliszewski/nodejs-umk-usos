@@ -31,6 +31,10 @@ h2{
   font-size: 110%;
 }
 
+.container{
+  min-height: 100%;
+}
+
 #login{
   font-weight: bold;
 }
@@ -54,7 +58,7 @@ h2{
 
 .is-danger {
   .hero-body {
-    min-height: 100vh;
+    min-height: 90vh;
   }
 }
 

@@ -3,10 +3,12 @@ const path = require('path');
 const {VueLoaderPlugin} = require('vue-loader')
 
 module.exports = {
-    mode: 'development',
-    entry: './views/vue/main.js',
+    mode: 'production',
+    entry: {
+        vue: './views/vue/main.js',
+    },
     output: {
-        filename: 'bundle.js',
+        filename: '[name].bundle.js',
         path: path.resolve(__dirname + '/public/'),
     },
     module: {
