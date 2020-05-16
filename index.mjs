@@ -5,9 +5,14 @@ import * as https from 'https';
 import * as fs from 'fs';
 import ip from "ip";
 import {sessionSettings} from "./sessionSettings.mjs";
+import usosCommunication from "./usosCommunication/usosCommunication.mjs";
 
 const port = process.env.PORT || 3000;
 export const hostAddress = ip.address().toString();
+usosCommunication.loadKeys().catch(() => {
+    console.error("Nie ustawiono poprawnie pliku apiKeys.json zawierającego klucze dostępu do Usos API!\nProszę sprawdzić poprawność pliku z dokumentacją.");
+    process.exit(5);
+});
 
 const app = express();
 app.use(sessionSettings);

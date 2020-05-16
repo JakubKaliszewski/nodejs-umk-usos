@@ -32,6 +32,8 @@ export default class UsosCommunication{
     static async loadKeys(){
         if (this.keys === null)
             this.keys = await fileOperation.readFile(__dirname + this.apiKeysFile)
+        if(this.keys.consumerKey === undefined || this.keys.consumerSecret === undefined)
+            throw new Error();
     }
 
     static async getKeys(){
