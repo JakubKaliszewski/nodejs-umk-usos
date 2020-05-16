@@ -35,7 +35,6 @@
         },
         methods: {
             async search() {
-                this.searched = true;
                 if(this.lastQuery === this.query) return;
                 this.lastQuery = this.query;
 
@@ -55,6 +54,7 @@
                 const result = await response.json();
 
                 this.personResults = result;
+                this.searched = true;
             }
         }
     }
