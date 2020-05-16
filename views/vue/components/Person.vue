@@ -35,12 +35,15 @@
                                 <strong>{{person.name}}</strong> <small>@{{person.rule}}</small>
                             </div>
                             <br>
-                            <p>
+                            <div>
                                 <strong>Wydział: </strong>{{person.faculty}}<br>
                                 <strong>Pozycja: </strong>{{person.position}}<br>
                                 <strong>E-mail: </strong>{{person.email}}<br>
-                                <strong>Strona www: </strong>{{person.homepage}}<br>
-                            </p>
+                                <div v-if="person.homepage !== 'brak'">
+                                    <strong>Strona www: </strong><a :target="'_blank'" :href="person.homepage">{{person.homepage}}</a>
+                                </div>
+                                <div v-else><strong>Strona www: </strong> {{person.homepage}}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
