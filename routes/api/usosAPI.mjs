@@ -1,7 +1,7 @@
 import express from 'express';
 import {sessionSettings} from "../../sessionSettings.mjs";
-import usosCommunication from "../../UsosAuth/usosCommunication.mjs";
-import UsosUserResponse from "../../UsosAuth/usosUserResponse.mjs";
+import usosCommunication from "../../usosCommunication/usosCommunication.mjs";
+import UsosUserResponse from "../../usosCommunication/usosUserResponse.mjs";
 
 export const usosApiRouter = express.Router();
 
@@ -22,7 +22,6 @@ usosApiRouter.get('/user', async (request, response) => {
         };
     }
 
-
     const name = request.query.name;
     const surname = request.query.surname;
     if (surname === '' || surname === undefined)
@@ -41,13 +40,13 @@ usosApiRouter.get('/user', async (request, response) => {
 
     //pozyskujemy dodatkowe informacje
     if (token !== null){
-        let details = [];
+        let usersWithDetails = [];
         for (const user of users) {
             let userDetails = await usosCommunication.searchUserDetails(user.id, token);
-            let usosUser = new UsosUserResponse(user, userDetails);
-            details.push(usosUser);
+            let preparedUser = new UsosUserResponse(user, userDetails);
+            usersWithDetails.push(preparedUser);
         }
-        response.json(details);
+        response.json(usersWithDetails);
     }else response.json(users);
 });
 

@@ -93,8 +93,11 @@ export default class UsosCommunication{
     }
 
     //https://usosapps.umk.pl/developers/api/services/users/#user
-    static async searchUserDetails(userId, token){
-        const fields = "titles|student_status|staff_status|email|homepage_url|photo_urls|employment_functions|employment_positions|student_number"
+    static async searchUserDetails(
+        userId = null,
+        token,
+        fields = "titles|student_status|staff_status|email|homepage_url|photo_urls|employment_functions|employment_positions|student_number"
+    ){
         await this.loadKeys();
         const oauth = OAuth({
             consumer: {
@@ -104,7 +107,10 @@ export default class UsosCommunication{
             signature_method: 'HMAC-SHA1',
             hash_function: (baseString, key) => crypto.createHmac('sha1', key).update(baseString).digest('base64')
         });
-        const url =`${this.hostname}${this.searchUserDetailsUrl}?user_id=${userId}&fields=${fields}`;
+        let url;
+        if(userId === null)
+            url =`${this.hostname}${this.searchUserDetailsUrl}?fields=${fields}`;
+        else url =`${this.hostname}${this.searchUserDetailsUrl}?user_id=${userId}&fields=${fields}`;
         const response = await got.get(
             url,
             {headers: oauth.toHeader(oauth.authorize({url, method: 'GET'}, token))

@@ -4,7 +4,7 @@
             <article v-if="person.about === false" class="media">
                 <div class="media-left">
                     <figure class="image is-50x50">
-                        <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
+                        <img src="50.png" alt="Image">
                     </figure>
                 </div>
                 <div class="media-content">

@@ -1,5 +1,5 @@
 import express from 'express';
-import usosCommunication from "../../UsosAuth/usosCommunication.mjs";
+import usosCommunication from "../../usosCommunication/usosCommunication.mjs";
 import got from "got";
 import OAuth from "oauth-1.0a";
 import crypto from "crypto";
@@ -31,6 +31,7 @@ accountApiRouter.get('/login', async (request, response) => {
         };
 
         await usosCommunication.revokeToken(token);
+        response.clearCookie();
         request.session.destroy();
         response.json({url: logoutUrl});
     }
@@ -70,6 +71,15 @@ accountApiRouter.get('/callback/', async function (request, response) {
     const perm_data = qs.parse(tokenResponse.body);
     request.session.oauth_access_token = perm_data.oauth_token;
     request.session.oauth_secret_token = perm_data.oauth_token_secret;
+
+    const loginUserDetailsResponse = await usosCommunication.searchUserDetails(
+        null,
+        {key: perm_data.oauth_token, secret:perm_data.oauth_token_secret },
+        "photo_urls|first_name|last_name"
+    );
+
+    request.session.user_name = `${loginUserDetailsResponse.first_name} ${loginUserDetailsResponse.last_name}`;
+    request.session.user_image = loginUserDetailsResponse.photo_urls["50x50"];
 
     response.redirect('/');
 });

@@ -20,10 +20,14 @@ html
                     a.navbar-item(href='about')
                         | O stronie
                 .navbar-end
+                    #user.navbar-item
+                        img(src=user.image class="image is-50x50" )
+                    .navbar-item
+                        p #{user.name}
                     .navbar-item
                         .buttons
                             a.button.is-link(id="login" onclick='logInOut()')
-                                | #{loginStatus}
+                                | #{user.button}
 
         #main(class='container')
 
