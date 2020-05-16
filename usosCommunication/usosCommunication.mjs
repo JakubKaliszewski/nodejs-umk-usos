@@ -18,7 +18,7 @@ import {hostAddress} from "../index.mjs";
 
 const __dirname = path.resolve();
 
-export default class UsosCommunication{
+export default class UsosCommunication {
 
     static apiKeysFile = "/apiKeys.json";
     static keys = null;
@@ -29,19 +29,19 @@ export default class UsosCommunication{
     static searchUserDetailsUrl = "/services/users/user";
     static revokeUrl = "/services/oauth/revoke_token";
 
-    static async loadKeys(){
+    static async loadKeys() {
         if (this.keys === null)
             this.keys = await fileOperation.readFile(__dirname + this.apiKeysFile)
-        if(this.keys.consumerKey === undefined || this.keys.consumerSecret === undefined)
+        if (this.keys.consumerKey === undefined || this.keys.consumerSecret === undefined)
             throw new Error();
     }
 
-    static async getKeys(){
+    static async getKeys() {
         await this.loadKeys();
         return this.keys;
     }
 
-    static async getRequestToken(){
+    static async getRequestToken() {
         await this.loadKeys();
         const oauth = OAuth({
             consumer: {
@@ -54,18 +54,22 @@ export default class UsosCommunication{
 
         const url = this.hostname + this.requestTokenUrl;
         const response = await got.post(url, {
-            headers: oauth.toHeader(oauth.authorize({url, method: 'POST', data :{oauth_callback: `https://${hostAddress}:3000/api/account/callback`}}))
+            headers: oauth.toHeader(oauth.authorize({
+                url,
+                method: 'POST',
+                data: {oauth_callback: `https://${hostAddress}:3000/api/account/callback`}
+            }))
         });
         return qs.parse(response.body);
     }
 
-    static async getAuthorize(){
-        let token = await this.getRequestToken();
-        let url = `${this.hostname}${this.authorizeUrl}?${qs.stringify(token)}`;
+    static async getAuthorize() {
+        const token = await this.getRequestToken();
+        const url = `${this.hostname}${this.authorizeUrl}?${qs.stringify(token)}`;
         return {url: url, oauth_token: token};
     }
 
-    static async searchUser(query, token){
+    static async searchUser(query, token) {
         let response;
         await this.loadKeys();
         const oauth = OAuth({
@@ -76,22 +80,22 @@ export default class UsosCommunication{
             signature_method: 'HMAC-SHA1',
             hash_function: (baseString, key) => crypto.createHmac('sha1', key).update(baseString).digest('base64')
         });
-        const url = query=== null || query=== undefined ? `${this.hostname}${this.searchUrl}?lang=pl` : `${this.hostname}${this.searchUrl}?lang=pl&query=${query}`;
-        if(token !== null){
-             response = await got.post(
-                url,
-                {headers: oauth.toHeader(oauth.authorize({url, method: 'POST'}, token))
-                });
-        }else{
+        const url = query === null || query === undefined ? `${this.hostname}${this.searchUrl}?lang=pl` : `${this.hostname}${this.searchUrl}?lang=pl&query=${query}`;
+        if (token !== null) {
             response = await got.post(
                 url,
-                {headers: oauth.toHeader(oauth.authorize({url, method: 'POST'}))
+                {
+                    headers: oauth.toHeader(oauth.authorize({url, method: 'POST'}, token))
+                });
+        } else {
+            response = await got.post(
+                url,
+                {
+                    headers: oauth.toHeader(oauth.authorize({url, method: 'POST'}))
                 });
         }
 
-
-        const requestData = JSON.parse(response.body);
-        return requestData;
+        return JSON.parse(response.body);
     }
 
     //https://usosapps.umk.pl/developers/api/services/users/#user
@@ -99,7 +103,7 @@ export default class UsosCommunication{
         userId = null,
         token,
         fields = "titles|student_status|staff_status|email|homepage_url|photo_urls|employment_functions|employment_positions|student_number"
-    ){
+    ) {
         await this.loadKeys();
         const oauth = OAuth({
             consumer: {
@@ -110,19 +114,19 @@ export default class UsosCommunication{
             hash_function: (baseString, key) => crypto.createHmac('sha1', key).update(baseString).digest('base64')
         });
         let url;
-        if(userId === null)
-            url =`${this.hostname}${this.searchUserDetailsUrl}?fields=${fields}`;
-        else url =`${this.hostname}${this.searchUserDetailsUrl}?user_id=${userId}&fields=${fields}`;
+        if (userId === null)
+            url = `${this.hostname}${this.searchUserDetailsUrl}?fields=${fields}`;
+        else url = `${this.hostname}${this.searchUserDetailsUrl}?user_id=${userId}&fields=${fields}`;
         const response = await got.get(
             url,
-            {headers: oauth.toHeader(oauth.authorize({url, method: 'GET'}, token))
+            {
+                headers: oauth.toHeader(oauth.authorize({url, method: 'GET'}, token))
             });
 
-        const requestData = JSON.parse(response.body);
-        return requestData;
+        return JSON.parse(response.body);
     }
 
-    static async revokeToken(token){
+    static async revokeToken(token) {
         await this.loadKeys();
         const oauth = OAuth({
             consumer: {
@@ -133,7 +137,7 @@ export default class UsosCommunication{
             hash_function: (baseString, key) => crypto.createHmac('sha1', key).update(baseString).digest('base64')
         });
         const url = `${this.hostname}${this.revokeUrl}`;
-        const response = await got.post(
+        await got.post(
             url,
             {
                 headers: oauth.toHeader(oauth.authorize({url, method: 'POST'}, token))

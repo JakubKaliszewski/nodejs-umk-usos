@@ -31,16 +31,15 @@ usosApiRouter.get('/user', async (request, response) => {
         query = `${name} ${surname}`;
     else query = surname;
     const responseUsers = await usosCommunication.searchUser(query, token);
-    let users = [];
+    const users = [];
     responseUsers.items.forEach((user) => {
-        let cleanUser = cleanTextFromTags(user.match);
-        user.match = cleanUser;
+        user.match = cleanTextFromTags(user.match);
         users.push({name: user.match, id: user.user.id, about: false});
     })
 
     //pozyskujemy dodatkowe informacje
     if (token !== null){
-        let usersWithDetails = [];
+        const usersWithDetails = [];
         for (const user of users) {
             let userDetails = await usosCommunication.searchUserDetails(user.id, token);
             let preparedUser = new UsosUserResponse(user, userDetails);
