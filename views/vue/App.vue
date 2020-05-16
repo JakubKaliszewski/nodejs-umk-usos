@@ -50,10 +50,15 @@
                 const url = new URL('https://' + this.hostname + '/api/usos/user'),
                     params = searchParams
                 Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
-                const response = await fetch(url);
-                const result = await response.json();
 
-                this.personResults = result;
+                try{
+                    const response = await fetch(url);
+                    const result = await response.json();
+
+                    this.personResults = result;
+                }catch (e) {
+                    this.personResults = [];
+                }
                 this.searched = true;
             }
         }
