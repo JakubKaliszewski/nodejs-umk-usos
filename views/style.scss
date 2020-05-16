@@ -4,14 +4,17 @@
 @import "../node_modules/bulma/bulma";
 @import '../node_modules/@fortawesome/fontawesome-free/css/fontawesome.css';
 
-$body-color: #d6d6d6;
+$body-color: #f6f6f6;
 $font-color: #101010;
 $default-font: Google Sans;
 $header-font: Fira Sans, sans-serif;
 
+html{
+  background-color: $body-color;
+}
+
 body {
   font-family: $default-font;
-  background-color: $body-color;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -39,7 +42,14 @@ h2{
   left: 0;
   padding-bottom: 1.5rem;
   padding-top: 1.5rem;
-
+  background-color: $info;
+  color: $info-invert;
+  .content p a{
+    color: $info-light !important;
+  }
+  .content p strong{
+    color: $info-light !important;
+  }
 }
 
 .is-danger {
