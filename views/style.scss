@@ -4,13 +4,14 @@
 @import "../node_modules/bulma/bulma";
 @import '../node_modules/@fortawesome/fontawesome-free/css/fontawesome.css';
 
-$body-color: #dfdfdf;
+$body-color: #d6d6d6;
 $font-color: #101010;
 $default-font: Google Sans;
 $header-font: Fira Sans, sans-serif;
 
 body {
   font-family: $default-font;
+  background-color: $body-color;
 }
 
 h1, h2, h3, h4, h5, h6 {
