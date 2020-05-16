@@ -25,6 +25,7 @@
   "homepage": "https://github.com/JakubKaliszewski/MP-NODEJS-USOS#readme",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
+    "@saeris/vue-spinners": "^1.0.8",
     "bulma": "^0.8.2",
     "express": "~4.17.1",
     "express-session": "^1.17.1",

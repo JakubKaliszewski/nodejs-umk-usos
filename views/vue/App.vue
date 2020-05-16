@@ -1,6 +1,7 @@
 <template>
     <div>
         <Searchbar v-model="query" @keydown.enter="search" @search="search"/>
+        <GridLoader id="loader" v-bind:loading="loading" v-bind:color="color"/>
         <div id="persons" v-if="personResults.length">
             <Person
                     v-for="person in personResults"
@@ -30,7 +31,9 @@
                 requestToken: {
                     key: '',
                     secret: ''
-                }
+                },
+                loading: false,
+                color: "#3298DC"
             }
         },
         methods: {
@@ -52,11 +55,15 @@
                 Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
 
                 try{
+                    this.searched = false;
+                    this.personResults = [];
+                    this.loading = true;
                     const response = await fetch(url);
                     const result = await response.json();
-
+                    this.loading = false;
                     this.personResults = result;
                 }catch (e) {
+                    this.loading = false;
                     this.personResults = [];
                 }
                 this.searched = true;
