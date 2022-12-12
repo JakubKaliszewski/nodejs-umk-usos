@@ -27,7 +27,7 @@
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@saeris/vue-spinners": "^1.0.8",
     "bulma": "^0.8.2",
-    "express": "~4.17.1",
+    "express": "~4.17.3",
     "express-session": "^1.17.1",
     "file-loader": "^6.0.0",
     "got": "^11.0.3",
